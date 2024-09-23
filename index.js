@@ -1,4 +1,7 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
+import bodyParser from "body-parser";
 import cors from "cors";
 import registerRoute from "./routes/auth.js";
 import postRoute from "./routes/posts.js";
@@ -8,6 +11,8 @@ import getProjects from "./routes/projects.js";
 const port = 8080;
 
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
