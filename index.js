@@ -26,7 +26,6 @@ app.use("/api/auth", registerRoute);
 app.use("/api/posts", postRoute);
 
 app.use("/api/projects", getProjects);
-
 // Query one row from a table
 // const query = "SELECT * FROM posts LIMIT 1";
 // connection.query(query, (err, results) => {
