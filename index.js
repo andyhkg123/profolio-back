@@ -8,17 +8,22 @@ import postRoute from "./routes/posts.js";
 import cookieParser from "cookie-parser";
 import getProjects from "./routes/projects.js";
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // or your frontend URL
+    credentials: true, // Allow credentials (cookies) to be sent
+  })
+);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port http://localhost:${PORT}/`);
 });
 
 app.get("/", (req, res) => {
