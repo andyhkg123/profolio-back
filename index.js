@@ -8,7 +8,7 @@ import postRoute from "./routes/posts.js";
 import cookieParser from "cookie-parser";
 import getProjects from "./routes/projects.js";
 
-const port = 8080;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,8 +17,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
-app.listen(port, () => {
-  console.log(`listening to port http://localhost:${port}/`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 app.use("/api/auth", registerRoute);
