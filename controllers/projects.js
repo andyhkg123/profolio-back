@@ -1,14 +1,26 @@
-import { db } from "../db.js";
+import { client } from "../db.js";
 
 // import jwt from "jsonwebtoken";
 
-export const getProjects = (req, res) => {
-  const q = `SELECT * FROM profolio.projects where idprojects = ${req.params.id}`;
-  db.query(q, (err, data) => {
-    if (err) {
-      return res.status(500).json(err); // Handle the error appropriately
+export const getProjects = async (req, res) => {
+  try {
+    await client.connect();
+    const database = client.db("profolio");
+    const projects = database.collection("projects");
+
+    const project = await projects.findOne({
+      idprojects: parseInt(req.params.id),
+    });
+
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
     }
-    console.log(data);
-    return res.status(200).json(data[0]); // Assuming you want a single post
-  });
+
+    console.log(project);
+    return res.status(200).json(project);
+  } catch (err) {
+    return res.status(500).json(err); // Handle the error appropriately
+  } finally {
+    await client.close();
+  }
 };

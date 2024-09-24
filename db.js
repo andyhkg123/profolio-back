@@ -1,16 +1,23 @@
-import mysql from "mysql2";
-
-export const db = mysql.createConnection({
-  host: "127.0.0.2",
-  user: "root",
-  password: "password",
-  database: "profolio",
+import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
+const uri =
+  "mongodb+srv://andywong3111:mongodb3111@cluster0.mxtfb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+export const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error("Error connecting to the database:", err);
-    return;
-  }
-  console.log("Connected to the database");
-});
+// Connect to MongoDB once at startup
+client
+  .connect()
+  .then(() => {
+    console.log("Connected to MongoDB");
+
+    // Start the server after connecting to the database
+  })
+  .catch((err) => {
+    console.error("Failed to connect to MongoDB", err);
+    process.exit(1);
+  });
