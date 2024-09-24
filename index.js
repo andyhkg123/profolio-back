@@ -43,5 +43,4 @@ app.use("/api/projects", getProjects);
 //   }
 //   console.log("Query result:", results[0]);
 // });
-
 export default app;

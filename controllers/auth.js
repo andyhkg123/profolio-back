@@ -135,6 +135,7 @@ export const login = async (req, res) => {
         httpOnly: true, // Prevent access via JavaScript
         secure: process.env.NODE_ENV === "production", // Only set Secure in production
         sameSite: "None", // Allow cross-site cookies
+        path: "/",
       })
       .status(200)
       .json({
