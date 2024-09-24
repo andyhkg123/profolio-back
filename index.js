@@ -11,15 +11,15 @@ import getProjects from "./routes/projects.js";
 const PORT = process.env.PORT || 8080;
 
 const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cookieParser());
 const corsOptions = {
   origin: "https://profolio-front.vercel.app", // Replace with your frontend URL
   credentials: true, // Allow credentials (cookies) to be sent with requests
 };
 app.use(cors(corsOptions));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
 
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}/`);
