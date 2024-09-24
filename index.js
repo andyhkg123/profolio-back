@@ -15,11 +15,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  cors({
-    credentials: true, // Allow credentials (cookies) to be sent
-  })
-);
+const corsOptions = {
+  origin: "https://profolio-front.vercel.app", // Replace with your frontend URL
+  credentials: true, // Allow credentials (cookies) to be sent with requests
+};
+app.use(cors(corsOptions));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}/`);
