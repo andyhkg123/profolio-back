@@ -150,4 +150,3 @@ export const addPost = async (req, res) => {
 };
 
 // Use the middleware when defining the route
-app.post("/api/addpost", verifyToken, addPost);
