@@ -97,7 +97,7 @@ export const getPosts = async (req, res) => {
 //   });
 // };
 
-const verifyToken = (req, res, next) => {
+export const verifyToken = (req, res, next) => {
   const token = req.cookies.access_token; // Get the token from the cookie
 
   if (!token) {
@@ -112,8 +112,6 @@ const verifyToken = (req, res, next) => {
     next(); // Proceed to the next middleware or route handler
   });
 };
-
-import { client } from "../db.js";
 
 // Endpoint to add a post
 export const addPost = async (req, res) => {
