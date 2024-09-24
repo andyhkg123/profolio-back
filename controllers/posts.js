@@ -60,91 +60,39 @@ export const getPosts = async (req, res) => {
 //   });
 // };
 
-// export const addPost = async (req, res) => {
-//   const { fullname_blog, title, content } = req.body;
+export const addPost = async (req, res) => {
+  const { fullname_blog, title, content } = req.body;
 
-//   const token = req.cookies.access_token;
-//   console.log(token);
-//   if (!token) return res.status(401).json("Not authenticated!");
+  const token = req.cookies.access_token;
+  console.log(token);
+  if (!token) return res.status(401).json("Not authenticated!");
 
-//   jwt.verify(token, "jwtkey", async (err, userInfo) => {
-//     if (err) return res.status(403).json("Token is not valid!");
+  jwt.verify(token, "jwtkey", async (err, userInfo) => {
+    if (err) return res.status(403).json("Token is not valid!");
 
-//     console.log(userInfo.id);
+    console.log(userInfo.id);
 
-//     try {
-//       await client.connect();
-//       const database = client.db("profolio");
-//       const blog = database.collection("blog");
+    try {
+      await client.connect();
+      const database = client.db("profolio");
+      const blog = database.collection("blog");
 
-//       const newPost = {
-//         title,
-//         content,
-//         email_blog: userInfo.id,
-//         date: new Date(),
-//         fullname_blog,
-//       };
+      const newPost = {
+        title,
+        content,
+        email_blog: userInfo.id,
+        date: new Date(),
+        fullname_blog,
+      };
 
-//       const result = await blog.insertOne(newPost);
+      const result = await blog.insertOne(newPost);
 
-//       console.log(result);
-//       return res.json("Post has been created.");
-//     } catch (err) {
-//       return res.status(500).json(err); // Handle the error appropriately
-//     } finally {
-//       await client.close();
-//     }
-//   });
-// };
-
-export const verifyToken = (req, res, next) => {
-  const token = req.cookies.access_token; // Get the token from the cookie
-
-  if (!token) {
-    return res.status(401).json({ error: "No token provided" });
-  }
-
-  jwt.verify(token, "jwtkey", (err, decoded) => {
-    if (err) {
-      return res.status(403).json({ error: "Token is not valid" });
+      console.log(result);
+      return res.json("Post has been created.");
+    } catch (err) {
+      return res.status(500).json(err); // Handle the error appropriately
+    } finally {
+      await client.close();
     }
-    req.user = decoded; // Attach user info to the request
-    next(); // Proceed to the next middleware or route handler
   });
 };
-
-// Endpoint to add a post
-export const addPost = async (req, res) => {
-  const { title, content } = req.body; // Extract title and content from the request body
-
-  // Check if the user is authenticated
-  if (!req.user) {
-    return res.status(401).json({ error: "User not authenticated" });
-  }
-
-  try {
-    await client.connect();
-    const database = client.db("profolio");
-    const posts = database.collection("posts"); // Assuming you have a posts collection
-
-    const newPost = {
-      title,
-      content,
-      author: req.user.id, // Use the authenticated user's email or ID from the JWT
-      createdAt: new Date(),
-    };
-
-    await posts.insertOne(newPost); // Insert the new post into the database
-
-    return res
-      .status(201)
-      .json({ message: "Post added successfully", post: newPost });
-  } catch (err) {
-    console.error("Database query error:", err);
-    return res.status(500).json({ error: "Internal server error" });
-  } finally {
-    await client.close(); // Ensure the database connection is closed
-  }
-};
-
-// Use the middleware when defining the route
