@@ -133,7 +133,7 @@ export const login = async (req, res) => {
     res
       .cookie("access_token", token, {
         httpOnly: false, // Prevent access via JavaScript
-        secure: process.env.NODE_ENV === "production", // Only set Secure in production
+        secure: true, // Only set Secure in production
         sameSite: "None", // Allow cross-site cookies
       })
       .status(200)
