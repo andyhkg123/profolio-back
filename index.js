@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 const corsOptions = {
-  // origin: "https://profolio-front.vercel.app", // Replace with your frontend URL
+  origin: "https://profolio-front-2v.vercel.app", // Replace with your frontend URL
   credentials: true, // Allow credentials (cookies) to be sent with requests
 };
 app.use(cors(corsOptions));
