@@ -16,7 +16,6 @@ export const getProjects = async (req, res) => {
       return res.status(404).json({ message: "Project not found" });
     }
 
-    console.log(project);
     return res.status(200).json(project);
   } catch (err) {
     return res.status(500).json(err); // Handle the error appropriately

@@ -1,7 +1,7 @@
 import { client } from "../db.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import cookieParser from "cookie-parser";
+// import cookieParser from "cookie-parser";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -24,8 +24,8 @@ export const getPosts = async (req, res) => {
 export const addPost = async (req, res) => {
   const { fullname_blog, title, content } = req.body;
 
-  // console.log("Request headers:", req.headers);
-  // console.log("Cookies:", req.cookies);
+  console.log("Request headers:", req.headers);
+  console.log("Cookies:", req.cookies);
 
   const token = req.cookies.access_token;
 
