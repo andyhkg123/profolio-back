@@ -1,5 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -12,7 +10,7 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 const corsOptions = {
-  origin: "https://profolio-front-2v.vercel.app", // Replace with your frontend URL
+  origin: ["https://profolio-front-2v.vercel.app", "http://localhost:5173"], // Replace with your frontend URL
   credentials: true, // Allow credentials (cookies) to be sent with requests
 };
 app.use(cors(corsOptions));
@@ -20,10 +18,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port http://localhost:${PORT}/`);
-});
 
 app.get("/", (req, res) => {
   res.send("Hello from Vercel!");
@@ -43,4 +37,13 @@ app.use("/api/projects", getProjects);
 //   }
 //   console.log("Query result:", results[0]);
 // });
+
+app.use((req, res, next) => {
+  console.log("Full Request Headers:", req.headers);
+  next();
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port http://localhost:${PORT}/`);
+});
 export default app;
