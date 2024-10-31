@@ -2,9 +2,11 @@ import { client } from "../db.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-dotenv.config({ path: ".env.local" });
+dotenv.config();
 
-const secret = import.meta.env.JWT_SECRET;
+// const secret = process.env.JWT_SECRET;
+
+const secret = process.env.JWT_SECRET;
 
 export function generateToken(payload) {
   // console.log("JWT_SECRET during generation:", process.env.JWT_SECRET);
