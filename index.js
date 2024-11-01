@@ -38,11 +38,6 @@ app.use("/api/projects", getProjects);
 //   console.log("Query result:", results[0]);
 // });
 
-app.use((req, res, next) => {
-  console.log("Full Request Headers:", req.headers);
-  next();
-});
-
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}/`);
 });
