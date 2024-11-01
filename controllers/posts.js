@@ -24,15 +24,6 @@ export const getPosts = async (req, res) => {
 };
 
 export const addPost = async (req, res) => {
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); // Adjust this to match your client URL
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
-  if (req.method !== "POST") {
-    res.setHeader("Allow", ["POST"]);
-    return res.status(405).end(`Method ${req.method} Not Allowed`);
-  }
   const { fullname_blog, title, content } = req.body;
 
   const token = req.cookies.access_token;
