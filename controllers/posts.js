@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 // Load environment variables from .env file
 dotenv.config();
+const secret = process.env.JWT_SECRET;
 
 export const getPosts = async (req, res) => {
   try {
@@ -29,7 +30,11 @@ export const addPost = async (req, res) => {
   if (!token) return res.status(401).json("Not authenticated!");
 
   jwt.verify(token, process.env.JWT_SECRET, async (err, userInfo) => {
-    if (err) return res.status(403).json("Token is not valid!");
+    if (err) {
+      console.log("Verification error:", err);
+      return res.status(403).json("Token is not valid!");
+    }
+    console.log("User info:", userInfo.id);
 
     try {
       await client.connect();
