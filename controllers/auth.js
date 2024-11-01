@@ -78,6 +78,7 @@ export const login = async (req, res) => {
         sameSite: "Strict",
         secure: true,
         maxAge: 3600 * 1000,
+        // domain: '.your-domain.com'
       });
 
       console.log("Cookie set:", req.cookies.access_token); // Log cookie to check
