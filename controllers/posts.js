@@ -1,6 +1,8 @@
 import { client } from "../db.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { parse } from "cookie";
+
 // import cookieParser from "cookie-parser";
 
 // Load environment variables from .env file
@@ -24,8 +26,10 @@ export const getPosts = async (req, res) => {
 export const addPost = async (req, res) => {
   const { fullname_blog, title, content } = req.body;
 
-  const token = req.cookies.access_token;
-  console.log(req.cookies);
+  // const token = req.cookies.access_token;
+  const cookies = parse(req.headers.cookie || "");
+  const token = cookies.access_token;
+  console.log(token);
 
   if (!token) return res.status(401).json("Not authenticated!");
 
