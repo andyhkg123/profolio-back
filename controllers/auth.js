@@ -80,6 +80,8 @@ export const login = async (req, res) => {
         maxAge: 3600 * 1000,
       });
 
+      console.log("Cookie set:", req.cookies.access_token); // Log cookie to check
+
       return res.status(200).json({ message: "User logged in", user });
     } catch (err) {
       console.error("Database query error:", err);
