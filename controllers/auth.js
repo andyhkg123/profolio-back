@@ -16,13 +16,6 @@ export function generateToken(payload) {
   return jwt.sign(payload, secret, { expiresIn: "1h" });
 }
 
-export function verifyToken(token) {
-  if (!secret) {
-    throw new Error("JWT secret is not defined");
-  }
-  return jwt.verify(token, secret);
-}
-
 export const register = async (req, res) => {
   const { fullname, email, password } = req.body;
 
