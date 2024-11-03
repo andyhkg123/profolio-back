@@ -27,8 +27,7 @@ export const addPost = async (req, res) => {
   const { fullname_blog, title, content } = req.body;
 
   const token = req.cookies.access_token;
-  // const cookies = parse(req.headers.cookie || "");
-  // const token = cookies.access_token;
+  console.log(token);
 
   if (!token) return res.status(401).json("Not authenticated!");
 

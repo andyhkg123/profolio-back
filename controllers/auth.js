@@ -72,16 +72,10 @@ export const login = async (req, res) => {
       }
 
       const token = generateToken({ id: user.email }, "jwtkey");
-      res.cookie("access_token", token, {
-        httpOnly: true,
-        path: "/",
-        sameSite: "Strict",
-        secure: true,
-        maxAge: 3600 * 1000,
-        // domain: '.your-domain.com'
-      });
-
-      console.log("Cookie set:", req.cookies.access_token); // Log cookie to check
+      res.setHeader(
+        "Set-Cookie",
+        `access_token=${token}; HttpOnly; Path=/; SameSite=Strict; Max-Age=3600`
+      );
 
       return res.status(200).json({ message: "User logged in", user });
     } catch (err) {
