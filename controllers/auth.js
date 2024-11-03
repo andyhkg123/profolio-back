@@ -71,7 +71,8 @@ export const login = async (req, res) => {
         return res.status(401).json({ error: "Incorrect password" });
       }
 
-      const token = generateToken({ id: user.email }, "jwtkey");
+      const token = generateToken({ id: user.email }, process.env.JWT_SECRET);
+
       res.setHeader(
         "Set-Cookie",
         `access_token=${token}; HttpOnly; Path=/; SameSite=Strict; Max-Age=3600`
