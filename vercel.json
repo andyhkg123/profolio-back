@@ -24,6 +24,6 @@
   ],
   "env": {
     "NODE_ENV": "production",
-    "JWT_SECRET": "@jwt_secret"
+    "JWT_SECRET": "da56b672bf3bbdfec152ddec2f257a0f232f79f6b3bbdecedc93a9fa373b6fbe259398b50b1e81e55cbdc09f58b04f6ddd4b9ef4266030cad671ffb5d9448bfd"
   }
 }
